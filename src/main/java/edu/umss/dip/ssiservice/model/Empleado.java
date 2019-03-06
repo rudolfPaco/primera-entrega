@@ -1,5 +1,7 @@
 package edu.umss.dip.ssiservice.model;
 
+import edu.umss.dip.ssiservice.dto.EmpleadoDto;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,7 +9,7 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-public class Empleado extends ModelBase {
+public class Empleado extends ModelBase<EmpleadoDto> {
 
     private String cI;
     private String nombres;
@@ -15,9 +17,10 @@ public class Empleado extends ModelBase {
     private String email;
     private String fechaContratacion;
     private int antiguedad;
-    @OneToMany(mappedBy = "empleadoAsignacion", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 
+    @OneToMany(mappedBy = "empleadoAsignacion", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AsignacionInsumosEE> asignacionEmpleados;
+
     public String getcI() {
         return cI;
     }
@@ -56,6 +59,7 @@ public class Empleado extends ModelBase {
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
     }
+
     public Set<AsignacionInsumosEE> getAsignacionEmpleados() {
         return asignacionEmpleados;
     }

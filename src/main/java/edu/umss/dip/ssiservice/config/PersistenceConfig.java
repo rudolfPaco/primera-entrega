@@ -1,4 +1,4 @@
-package edu.umss.dip.ssiservice;
+package edu.umss.dip.ssiservice.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

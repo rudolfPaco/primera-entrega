@@ -1,5 +1,7 @@
 package edu.umss.dip.ssiservice.model;
 
+import edu.umss.dip.ssiservice.dto.DtoBase;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,7 +12,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @SuppressWarnings("rawtypes")
-public class ModelBase {
+public class ModelBase<D extends DtoBase> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +22,12 @@ public class ModelBase {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
-    private Date createdOn;
+    private Date createdAt;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(insertable = false)
-    private Date updateOn;
+    private Date updateAt;
 
     @Version
     @Column(nullable = false)
@@ -39,20 +41,20 @@ public class ModelBase {
         this.id = id;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getUpdateOn() {
-        return updateOn;
+    public Date getUpdateAt() {
+        return updateAt;
     }
 
-    public void setUpdateOn(Date updateOn) {
-        this.updateOn = updateOn;
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
     }
 
     public long getVersion() {
@@ -61,5 +63,10 @@ public class ModelBase {
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public ModelBase toDomain(D element, ModelMapper mapper) {
+        mapper.map(element, this);
+        return this;
     }
 }
