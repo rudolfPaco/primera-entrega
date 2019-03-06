@@ -1,6 +1,5 @@
 package edu.umss.dip.ssiservice.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,13 +10,11 @@ public class Insumo extends ModelBase {
 
     @Column(nullable = false)
     private String nombreInsumo;
-
     @Column(nullable = false)
     private int cantidad;
-
     private String estado;
 
-    @OneToMany(mappedBy = "insumoAsignacion", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "insumoAsignado")
     private Set<AsignacionInsumosEE> asignacionInsumos;
 
     public String getNombreInsumo() {

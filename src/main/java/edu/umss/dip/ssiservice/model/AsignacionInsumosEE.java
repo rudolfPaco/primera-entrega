@@ -10,11 +10,10 @@ public class AsignacionInsumosEE extends ModelBase {
 
     @ManyToOne
     @JoinColumn
-    private Empleado empleadoAsignacion;
-
+    private Empleado empleadoAsignado;
     @ManyToOne
     @JoinColumn
-    private Insumo insumoAsignacion;
+    private Insumo insumoAsignado;
 
     private Date fechaAsignacion;
 
@@ -22,24 +21,23 @@ public class AsignacionInsumosEE extends ModelBase {
     public Date getFechaAsignacion() {
         return fechaAsignacion;
     }
-
     public void setFechaAsignacion(Date fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
     }
 
-    public Empleado getEmpleadoAsignacion() {
-        return empleadoAsignacion;
+    public Empleado getEmpleadoAsignado() {
+        return empleadoAsignado;
     }
 
-    public void setEmpleadoAsignacion(Empleado empleadoAsignacion) {
-        this.empleadoAsignacion = empleadoAsignacion;
+    public void setEmpleadoAsignado(Empleado empleadoAsignado) {
+        this.empleadoAsignado = empleadoAsignado;
     }
 
-    public Insumo getInsumoAsignacion() {
-        return insumoAsignacion;
+    public Insumo getInsumoAsignado() {
+        return insumoAsignado;
     }
 
-    public void setInsumoAsignacion(Insumo insumoAsignacion) {
-        this.insumoAsignacion = insumoAsignacion;
+    public void setInsumoAsignado(Insumo insumoAsignado) {
+        this.insumoAsignado = insumoAsignado;
     }
 }

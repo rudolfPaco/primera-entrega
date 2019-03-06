@@ -1,41 +1,36 @@
 package edu.umss.dip.ssiservice.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "cI")})
 public class Empleado extends ModelBase {
 
     @Column(nullable = false)
     private String cI;
-
     @Column(nullable = false)
     private String nombres;
-
     @Column(nullable = false)
     private String apellidos;
-
     @Column(nullable = false)
     private String email;
-
     private Date fechaContratacion;
-
     @Column(nullable = false)
     private int antiguedad;
 
-    @ManyToMany(mappedBy = "empleadosAccidentes")
-    private List<Accidente> accidentes;
+    @ManyToMany(mappedBy = "listaEmpleados")
+    private Set<Accidente> accidentes = new HashSet<>();
 
-    @ManyToMany(mappedBy = "empleadosCapacitados")
-    private List<Capacitacion> capacitaciones;
+    @ManyToMany(mappedBy = "listaCapacitados")
+    private Set<Capacitacion> capacitaciones = new HashSet<>();
 
-    @OneToMany(mappedBy = "empleadoAsignacion", cascade = CascadeType.ALL)
-    private Set<AsignacionInsumosEE> asignacionEmpleados;
-
+    @OneToMany(mappedBy = "empleadoAsignado")
+    private Set<AsignacionInsumosEE> asignacionEmpleados = new HashSet<>();
 
     public String getcI() {
         return cI;
@@ -85,22 +80,21 @@ public class Empleado extends ModelBase {
         this.antiguedad = antiguedad;
     }
 
-    public List<Accidente> getAccidentes() {
+    public Set<Accidente> getAccidentes() {
         return accidentes;
     }
 
-    public void setAccidentes(List<Accidente> accidentes) {
+    public void setAccidentes(Set<Accidente> accidentes) {
         this.accidentes = accidentes;
     }
 
-    public List<Capacitacion> getCapacitaciones() {
+    public Set<Capacitacion> getCapacitaciones() {
         return capacitaciones;
     }
 
-    public void setCapacitaciones(List<Capacitacion> capacitaciones) {
+    public void setCapacitaciones(Set<Capacitacion> capacitaciones) {
         this.capacitaciones = capacitaciones;
     }
-
     public Set<AsignacionInsumosEE> getAsignacionEmpleados() {
         return asignacionEmpleados;
     }
@@ -108,19 +102,10 @@ public class Empleado extends ModelBase {
     public void setAsignacionEmpleados(Set<AsignacionInsumosEE> asignacionEmpleados) {
         this.asignacionEmpleados = asignacionEmpleados;
     }
-
     public void addAccidente(Accidente accidente) {
-        if (this.accidentes.isEmpty()) {
-            this.accidentes = new LinkedList<>();
-        }
         this.accidentes.add(accidente);
     }
-
     public void addCapacitacion(Capacitacion capacitacion) {
-        if (this.capacitaciones.isEmpty()) {
-            this.capacitaciones = new LinkedList<>();
-        }
         this.capacitaciones.add(capacitacion);
     }
-
 }

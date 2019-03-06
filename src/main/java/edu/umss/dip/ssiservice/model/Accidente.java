@@ -1,14 +1,18 @@
 package edu.umss.dip.ssiservice.model;
 
-import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Accidente extends ModelBase {
 
     private String tipo;
-    private String fecha;
+    private Date fecha;
     private String lugar;
 
     @JoinTable(
@@ -16,9 +20,8 @@ public class Accidente extends ModelBase {
             joinColumns = @JoinColumn(name = "idAccidente", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "idEmpleado", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Empleado> empleadosAccidentes;
-
+    @ManyToMany
+    private Set<Empleado> listaEmpleados = new HashSet<>();
 
     public String getTipo() {
         return tipo;
@@ -28,11 +31,7 @@ public class Accidente extends ModelBase {
         this.tipo = tipo;
     }
 
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -44,18 +43,14 @@ public class Accidente extends ModelBase {
         this.lugar = lugar;
     }
 
-    public List<Empleado> getEmpleadosAccidentes() {
-        return empleadosAccidentes;
+    public Set<Empleado> getListaEmpleados() {
+        return listaEmpleados;
     }
 
-    public void setEmpleadosAccidentes(List<Empleado> empleadosAccidentes) {
-        this.empleadosAccidentes = empleadosAccidentes;
+    public void setListaEmpleados(Set<Empleado> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
     }
-
     public void addEmpleado(Empleado empleado) {
-        if (this.empleadosAccidentes.isEmpty()) {
-            empleadosAccidentes = new LinkedList<>();
-        }
-        this.empleadosAccidentes.add(empleado);
+        this.listaEmpleados.add(empleado);
     }
 }

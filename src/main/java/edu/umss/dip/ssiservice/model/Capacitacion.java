@@ -1,9 +1,12 @@
 package edu.umss.dip.ssiservice.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Capacitacion extends ModelBase {
@@ -20,8 +23,8 @@ public class Capacitacion extends ModelBase {
             joinColumns = @JoinColumn(name = "idCapacitacion", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "idEmpleado", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Empleado> empleadosCapacitados;
+    @ManyToMany
+    private Set<Empleado> listaCapacitados = new HashSet<>();
 
 
     public String getTitulo() {
@@ -64,18 +67,11 @@ public class Capacitacion extends ModelBase {
         this.fecha = fecha;
     }
 
-    public List<Empleado> getEmpleadosCapacitados() {
-        return empleadosCapacitados;
+    public Set<Empleado> getListaCapacitados() {
+        return listaCapacitados;
     }
 
-    public void setEmpleadosCapacitados(List<Empleado> empleadosCapacitados) {
-        this.empleadosCapacitados = empleadosCapacitados;
-    }
-
-    public void addEmpleadoCapacitado(Empleado empleado) {
-        if (this.empleadosCapacitados.isEmpty()) {
-            this.empleadosCapacitados = new LinkedList<>();
-        }
-        this.empleadosCapacitados.add(empleado);
+    public void setListaCapacitados(Set<Empleado> listaCapacitados) {
+        this.listaCapacitados = listaCapacitados;
     }
 }
