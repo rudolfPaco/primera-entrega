@@ -1,6 +1,7 @@
 package edu.umss.dip.ssiservice.controller;
 
 import edu.umss.dip.ssiservice.dto.InsumoDto;
+import edu.umss.dip.ssiservice.model.AsignacionInsumosEE;
 import edu.umss.dip.ssiservice.model.Insumo;
 import edu.umss.dip.ssiservice.service.GenericService;
 import edu.umss.dip.ssiservice.service.InsumoService;
@@ -18,6 +19,7 @@ import java.util.List;
 public class InsumoController extends GenericController<Insumo, InsumoDto> {
 
     private InsumoService insumoService;
+    private AsignacionInsumosEE asignacionInsumosEE;
 
     public InsumoController(InsumoService insumoService) {
         this.insumoService = insumoService;
